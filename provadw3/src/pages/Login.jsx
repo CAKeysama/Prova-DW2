@@ -1,20 +1,31 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase/firebaseConfig';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [erro, setErro] = useState('');
+  const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Lógica de login com Firebase virá aqui
-    console.log('Login submetido:', { email, senha });
+    setErro('');
+    try {
+      await signInWithEmailAndPassword(auth, email, senha);
+      navigate('/');
+    } catch (error) {
+      setErro('Credenciais inválidas. Tente novamente.');
+      console.error(error);
+    }
   };
 
   return (
     <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
       <div style={{ maxWidth: '400px', width: '100%', padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '8px' }}>
         <h2>Login</h2>
+        {erro && <p style={{ color: 'red' }}>{erro}</p>}
         <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginTop: '20px' }}>
           <div>
             <label style={{ display: 'block', marginBottom: '5px' }}>Email:</label>

@@ -1,20 +1,31 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase/firebaseConfig';
 
 function Cadastro() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [erro, setErro] = useState('');
+  const navigate = useNavigate();
 
-  const handleCadastro = (e) => {
+  const handleCadastro = async (e) => {
     e.preventDefault();
-    // Lógica de cadastro com Firebase virá aqui
-    console.log('Cadastro submetido:', { email, senha });
+    setErro('');
+    try {
+      await createUserWithEmailAndPassword(auth, email, senha);
+      navigate('/');
+    } catch (error) {
+      setErro('Erro ao cadastrar. Tente novamente ou use outra senha.');
+      console.error(error);
+    }
   };
 
   return (
     <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
       <div style={{ maxWidth: '400px', width: '100%', padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '8px' }}>
         <h2>Cadastro</h2>
+        {erro && <p style={{ color: 'red' }}>{erro}</p>}
         <form onSubmit={handleCadastro} style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginTop: '20px' }}>
           <div>
             <label style={{ display: 'block', marginBottom: '5px' }}>Email:</label>
