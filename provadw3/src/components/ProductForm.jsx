@@ -25,6 +25,7 @@ function ProductForm({ onAdd }) {
         placeholder="Nome do produto"
         value={name}
         onChange={(e) => setName(e.target.value)}
+        required
       />
 
       <input
@@ -32,6 +33,7 @@ function ProductForm({ onAdd }) {
         placeholder="Preço"
         value={price}
         onChange={(e) => setPrice(e.target.value)}
+        required
       />
 
       <button type="submit">Adicionar produto</button>
