@@ -67,24 +67,28 @@ function Home() {
 
   return (
     <div className="container">
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <div className="top-nav">
         <Header />
         <button 
           onClick={handleLogout} 
-          style={{ padding: "8px 16px", backgroundColor: "#dc3545", color: "white", border: "none", borderRadius: "4px", cursor: "pointer" }}
+          className="btn-danger"
         >
           Sair
         </button>
       </div>
 
-      <img
-        src="https://images.unsplash.com/photo-1607082349566-187342175e2f"
-        alt="ecommerce"
-        className="banner"
-      />
+      <div className="main-content">
+        <div className="banner-container">
+          <img
+            src="https://images.unsplash.com/photo-1607082349566-187342175e2f"
+            alt="ecommerce"
+            className="banner"
+          />
+        </div>
 
-      <ProductForm onAdd={addProduct} />
-      <ProductList products={products} />
+        <ProductForm onAdd={addProduct} />
+        <ProductList products={products} />
+      </div>
 
       <Footer />
     </div>

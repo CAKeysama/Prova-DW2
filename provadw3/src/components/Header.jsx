@@ -1,9 +1,9 @@
 function Header() {
-    return (
-      <header className="header">
-        <h1>Sistema de Produtos</h1>
-      </header>
-    );
-  }
+  return (
+    <div className="header">
+      <h1>Sistema de Produtos</h1>
+    </div>
+  );
+}
   
-  export default Header;
+export default Header;
